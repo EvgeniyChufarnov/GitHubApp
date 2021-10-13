@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         super.onCreate(savedInstanceState)
 
         if (savedInstanceState == null) {
-            app.router.navigateTo(UserListScreen())
+            app.router.newRootScreen(UserListScreen())
         }
     }
 
