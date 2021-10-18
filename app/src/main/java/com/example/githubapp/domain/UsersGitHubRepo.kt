@@ -1,7 +1,8 @@
 package com.example.githubapp.domain
 
 import com.example.githubapp.domain.entities.UserEntity
+import io.reactivex.rxjava3.core.Observable
 
 interface UsersGitHubRepo {
-    suspend fun getUsers(): List<UserEntity>
+    val users: Observable<List<UserEntity>>
 }
