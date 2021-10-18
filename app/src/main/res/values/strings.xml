@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">GitHubApp</string>
+    <string name="connection_error_message">Cannot load the data</string>
+    <string name="unknown_user">Unknown user</string>
 </resources>
