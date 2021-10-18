@@ -9,14 +9,4 @@ class App : Application() {
     val navigatorHolder get() = cicerone.getNavigatorHolder()
 
     val repoContainer = RepoContainer()
-
-    override fun onCreate() {
-        super.onCreate()
-        INSTANCE = this
-    }
-
-    companion object {
-        internal lateinit var INSTANCE: App
-            private set
-    }
 }
