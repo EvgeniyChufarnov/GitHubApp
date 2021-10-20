@@ -2,9 +2,7 @@ package com.example.githubapp.domain.impls
 
 import com.example.githubapp.domain.UsersGitHubRepo
 import com.example.githubapp.domain.entities.UserEntity
-import io.reactivex.rxjava3.annotations.NonNull
-import io.reactivex.rxjava3.core.Observable
-import io.reactivex.rxjava3.subjects.BehaviorSubject
+import io.reactivex.rxjava3.core.Single
 import java.util.concurrent.TimeUnit
 
 private const val LOADING_DELAY = 3000L
@@ -23,6 +21,6 @@ class FakeUsersGitHubRepoImpl : UsersGitHubRepo {
         UserEntity("User10")
     )
 
-    override val users: Observable<List<UserEntity>> = BehaviorSubject.createDefault(fakeUsers)
+    override val users: Single<List<UserEntity>> = Single.just(fakeUsers)
         get() = field.delay(LOADING_DELAY, TimeUnit.MILLISECONDS)
 }

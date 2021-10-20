@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.githubapp.R
 import com.example.githubapp.databinding.FragmentUsersListBinding
+import com.example.githubapp.domain.analytic.UserClickEvent
 import com.example.githubapp.domain.app
 import com.example.githubapp.domain.entities.UserEntity
 import moxy.MvpAppCompatFragment
@@ -28,9 +29,14 @@ class UserListFragment : MvpAppCompatFragment(R.layout.fragment_users_list), Con
     }
 
     private fun initRecyclerView() {
-        adapter = UsersAdapter(presenter::onUserClicked)
+        adapter = UsersAdapter(this::onUserClicked)
         binding.usersRecyclerView.adapter = adapter
         binding.usersRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+    }
+
+    private fun onUserClicked(user: UserEntity) {
+        app.userClicksEventBus.postValue(UserClickEvent(user.login))
+        presenter.onUserClicked(user)
     }
 
     override fun setUsers(users: List<UserEntity>) {

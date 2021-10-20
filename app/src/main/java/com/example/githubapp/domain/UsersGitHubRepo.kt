@@ -1,8 +1,8 @@
 package com.example.githubapp.domain
 
 import com.example.githubapp.domain.entities.UserEntity
-import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.core.Single
 
 interface UsersGitHubRepo {
-    val users: Observable<List<UserEntity>>
+    val users: Single<List<UserEntity>>
 }
