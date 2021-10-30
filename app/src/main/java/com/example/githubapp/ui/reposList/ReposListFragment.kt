@@ -8,9 +8,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.githubapp.R
 import com.example.githubapp.databinding.FragmentEntitiesListBinding
-import com.example.githubapp.event_bus.analytic.UserClickEvent
-import com.example.githubapp.utils.app
 import com.example.githubapp.domain.entities.RepoEntity
+import com.example.githubapp.event_bus.analytic.RepoClickEvent
+import com.example.githubapp.utils.app
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
 
@@ -50,7 +50,7 @@ class ReposListFragment : MvpAppCompatFragment(R.layout.fragment_entities_list),
     }
 
     private fun onRepoClicked(repo: RepoEntity) {
-        app.userClicksEventBus.postValue(UserClickEvent(repo.name))
+        app.repoClickedEventBus.postValue(RepoClickEvent(repo.name))
         presenter.onRepoClicked(repo)
     }
 

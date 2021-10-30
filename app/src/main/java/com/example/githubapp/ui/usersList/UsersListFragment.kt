@@ -36,7 +36,7 @@ class UsersListFragment : MvpAppCompatFragment(R.layout.fragment_entities_list),
     }
 
     private fun onUserClicked(user: UserEntity) {
-        app.userClicksEventBus.postValue(UserClickEvent(user.login))
+        app.userClickedEventBus.postValue(UserClickEvent(user.login))
         presenter.onUserClicked(user)
     }
 

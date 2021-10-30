@@ -4,6 +4,7 @@ import android.app.Application
 import com.example.githubapp.event_bus.EventBus
 import com.example.githubapp.event_bus.analytic.AnalyticObserver
 import com.example.githubapp.event_bus.analytic.FirebaseAnalyticsApi
+import com.example.githubapp.event_bus.analytic.RepoClickEvent
 import com.example.githubapp.event_bus.analytic.UserClickEvent
 import com.github.terrakok.cicerone.Cicerone
 
@@ -14,9 +15,16 @@ class App : Application() {
 
     val repoContainer = RepoContainer()
 
-    val userClicksEventBus by lazy {
-        val eventBus = EventBus<UserClickEvent>()
-        AnalyticObserver(eventBus, FirebaseAnalyticsApi())
-        eventBus
+    val userClickedEventBus = EventBus<UserClickEvent>()
+    val repoClickedEventBus = EventBus<RepoClickEvent>()
+
+    override fun onCreate() {
+        super.onCreate()
+
+        AnalyticObserver(
+            userClickedEventBus,
+            repoClickedEventBus,
+            FirebaseAnalyticsApi()
+        )
     }
 }
