@@ -1,4 +1,4 @@
-package com.example.githubapp.domain
+package com.example.githubapp.utils
 
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment

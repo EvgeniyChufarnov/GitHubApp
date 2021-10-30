@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">GitHubApp</string>
     <string name="connection_error_message">Cannot load the data</string>
-    <string name="unknown_user">Unknown user</string>
+    <string name="num_of_forks">Forks: %1$d</string>
 </resources>
