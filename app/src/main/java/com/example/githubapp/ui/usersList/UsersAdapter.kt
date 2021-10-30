@@ -3,6 +3,7 @@ package com.example.githubapp.ui.usersList
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.githubapp.R
 import com.example.githubapp.databinding.ItemUserBinding
 import com.example.githubapp.domain.entities.UserEntity
@@ -37,6 +38,9 @@ class UsersAdapter(
 
         fun bind(user: UserEntity) {
             binding.userLoginTextView.text = user.login
+
+            Glide.with(itemView).load(user.avatarUrl).into(binding.userIconImageView)
+
             binding.root.setOnClickListener {
                 onClickListener(user)
             }
