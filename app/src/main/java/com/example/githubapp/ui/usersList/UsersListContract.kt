@@ -1,11 +1,11 @@
-package com.example.githubapp.ui.userList
+package com.example.githubapp.ui.usersList
 
 import com.example.githubapp.domain.entities.UserEntity
 import moxy.MvpPresenter
 import moxy.MvpView
 import moxy.viewstate.strategy.alias.AddToEndSingle
 
-class Contract {
+class UsersListContract {
     enum class ScreenState {
         IDLE, LOADING, ERROR
     }

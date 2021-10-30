@@ -1,10 +1,19 @@
 package com.example.githubapp.ui.common
 
-import com.example.githubapp.ui.user.UserFragment
-import com.example.githubapp.ui.userList.UserListFragment
+import com.example.githubapp.domain.entities.RepoEntity
+import com.example.githubapp.ui.repo.RepoFragment
+import com.example.githubapp.ui.reposList.ReposListFragment
+import com.example.githubapp.ui.usersList.UsersListFragment
 import com.github.terrakok.cicerone.androidx.FragmentScreen
 
 object Screens {
-    fun UserListScreen() = FragmentScreen { UserListFragment() }
-    fun UserScreen(login: String) = FragmentScreen { UserFragment.getInstance(login) }
+    fun UsersListScreen() = FragmentScreen { UsersListFragment() }
+
+    fun ReposListScreen(username: String) = FragmentScreen {
+        ReposListFragment.getInstance(username)
+    }
+
+    fun RepoScreen(repo: RepoEntity) = FragmentScreen {
+        RepoFragment.getInstance(repo)
+    }
 }
