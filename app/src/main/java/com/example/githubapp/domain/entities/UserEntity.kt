@@ -1,5 +1,8 @@
 package com.example.githubapp.domain.entities
 
+import com.google.gson.annotations.SerializedName
+
 data class UserEntity(
-    val login: String
+    @SerializedName("login") val login: String,
+    @SerializedName("avatar_url") val avatarUrl: String,
 )
