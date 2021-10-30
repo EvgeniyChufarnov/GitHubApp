@@ -5,8 +5,8 @@ import androidx.appcompat.app.AppCompatActivity
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.githubapp.R
 import com.example.githubapp.databinding.ActivityMainBinding
-import com.example.githubapp.domain.app
-import com.example.githubapp.ui.common.Screens.UserListScreen
+import com.example.githubapp.utils.app
+import com.example.githubapp.ui.common.Screens.UsersListScreen
 import com.github.terrakok.cicerone.androidx.AppNavigator
 
 class MainActivity : AppCompatActivity(R.layout.activity_main) {
@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         super.onCreate(savedInstanceState)
 
         if (savedInstanceState == null) {
-            app.router.newRootScreen(UserListScreen())
+            app.router.newRootScreen(UsersListScreen())
         }
     }
 
