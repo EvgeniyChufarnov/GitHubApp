@@ -7,7 +7,7 @@ import com.example.githubapp.domain.entities.UserEntity
 import io.reactivex.rxjava3.core.Single
 import retrofit2.Response
 
-class GitHubRepoImpl(
+class GitHubRemoteRepo(
     private val gitHubApi: GitHubApi
 ) : GitHubRepo {
     override fun getRepos(name: String): Single<Response<List<RepoEntity>>> {
