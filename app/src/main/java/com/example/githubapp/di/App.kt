@@ -13,10 +13,10 @@ class App : Application() {
     val router get() = cicerone.router
     val navigatorHolder get() = cicerone.getNavigatorHolder()
 
-    val repoContainer = RepoContainer()
+    val repoContainer by lazy { RepoContainer(this) }
 
-    val userClickedEventBus = EventBus<UserClickEvent>()
-    val repoClickedEventBus = EventBus<RepoClickEvent>()
+    val userClickedEventBus by lazy { EventBus<UserClickEvent>() }
+    val repoClickedEventBus by lazy {  EventBus<RepoClickEvent>() }
 
     override fun onCreate() {
         super.onCreate()
