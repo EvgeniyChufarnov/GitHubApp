@@ -1,4 +1,4 @@
-package com.example.githubapp.ui.usersList
+package com.example.githubapp.ui.users_list
 
 import android.os.Bundle
 import android.view.View

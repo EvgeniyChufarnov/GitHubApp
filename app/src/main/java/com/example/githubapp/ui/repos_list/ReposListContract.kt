@@ -1,4 +1,4 @@
-package com.example.githubapp.ui.reposList
+package com.example.githubapp.ui.repos_list
 
 import com.example.githubapp.domain.entities.RepoEntity
 import moxy.MvpPresenter

@@ -1,4 +1,4 @@
-package com.example.githubapp.ui.reposList
+package com.example.githubapp.ui.repos_list
 
 import android.os.Bundle
 import android.view.View

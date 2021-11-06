@@ -1,11 +1,10 @@
-package com.example.githubapp.ui.reposList
+package com.example.githubapp.ui.repos_list
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.githubapp.R
 import com.example.githubapp.databinding.ItemRepoBinding
-import com.example.githubapp.databinding.ItemUserBinding
 import com.example.githubapp.domain.entities.RepoEntity
 
 class ReposAdapter(
