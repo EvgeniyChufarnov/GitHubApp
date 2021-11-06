@@ -8,19 +8,29 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.githubapp.R
 import com.example.githubapp.databinding.FragmentEntitiesListBinding
+import com.example.githubapp.di.EVENT_BUS_REPO
 import com.example.githubapp.domain.entities.RepoEntity
+import com.example.githubapp.event_bus.EventBus
 import com.example.githubapp.event_bus.analytic.RepoClickEvent
-import com.example.githubapp.utils.app
 import moxy.MvpAppCompatFragment
-import moxy.ktx.moxyPresenter
+import moxy.presenter.InjectPresenter
+import moxy.presenter.ProvidePresenter
+import org.koin.android.ext.android.get
+import org.koin.android.ext.android.inject
+import org.koin.core.qualifier.named
 
 class ReposListFragment : MvpAppCompatFragment(R.layout.fragment_entities_list),
     ReposListContract.View {
 
+    @InjectPresenter
+    lateinit var presenter: ReposListContract.Presenter
+
+    @ProvidePresenter
+    fun provide(): ReposListContract.Presenter = get()
+
     private val binding: FragmentEntitiesListBinding by viewBinding(FragmentEntitiesListBinding::bind)
-    private val presenter by moxyPresenter {
-        ReposListPresenter(app.repoContainer.gitHubRepo, app.router)
-    }
+    private val repoClickedEventBus: EventBus<RepoClickEvent> by inject(named(EVENT_BUS_REPO))
+
     private lateinit var adapter: ReposAdapter
 
     companion object {
@@ -50,7 +60,7 @@ class ReposListFragment : MvpAppCompatFragment(R.layout.fragment_entities_list),
     }
 
     private fun onRepoClicked(repo: RepoEntity) {
-        app.repoClickedEventBus.postValue(RepoClickEvent(repo.name))
+        repoClickedEventBus.postValue(RepoClickEvent(repo.name))
         presenter.onRepoClicked(repo)
     }
 
