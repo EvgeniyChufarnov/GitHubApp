@@ -8,19 +8,29 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.githubapp.R
 import com.example.githubapp.databinding.FragmentEntitiesListBinding
-import com.example.githubapp.event_bus.analytic.UserClickEvent
-import com.example.githubapp.utils.app
+import com.example.githubapp.di.EVENT_BUS_USER
 import com.example.githubapp.domain.entities.UserEntity
+import com.example.githubapp.event_bus.EventBus
+import com.example.githubapp.event_bus.analytic.UserClickEvent
 import moxy.MvpAppCompatFragment
-import moxy.ktx.moxyPresenter
+import moxy.presenter.InjectPresenter
+import moxy.presenter.ProvidePresenter
+import org.koin.android.ext.android.get
+import org.koin.android.ext.android.inject
+import org.koin.core.qualifier.named
 
 class UsersListFragment : MvpAppCompatFragment(R.layout.fragment_entities_list),
     UsersListContract.View {
 
+    @InjectPresenter
+    lateinit var presenter: UsersListContract.Presenter
+
+    @ProvidePresenter
+    fun provide(): UsersListContract.Presenter = get()
+
     private val binding: FragmentEntitiesListBinding by viewBinding(FragmentEntitiesListBinding::bind)
-    private val presenter by moxyPresenter {
-        UsersListPresenter(app.repoContainer.gitHubRepo, app.router)
-    }
+    private val userClickedEventBus: EventBus<UserClickEvent> by inject(named(EVENT_BUS_USER))
+
     private lateinit var adapter: UsersAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -36,7 +46,7 @@ class UsersListFragment : MvpAppCompatFragment(R.layout.fragment_entities_list),
     }
 
     private fun onUserClicked(user: UserEntity) {
-        app.userClickedEventBus.postValue(UserClickEvent(user.login))
+        userClickedEventBus.postValue(UserClickEvent(user.login))
         presenter.onUserClicked(user)
     }
 
