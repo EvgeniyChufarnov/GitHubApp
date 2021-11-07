@@ -12,12 +12,12 @@ import com.example.githubapp.di.EVENT_BUS_USER
 import com.example.githubapp.domain.entities.UserEntity
 import com.example.githubapp.event_bus.EventBus
 import com.example.githubapp.event_bus.analytic.UserClickEvent
+import com.example.githubapp.utils.app
 import moxy.MvpAppCompatFragment
 import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
-import org.koin.android.ext.android.get
-import org.koin.android.ext.android.inject
-import org.koin.core.qualifier.named
+import javax.inject.Inject
+import javax.inject.Named
 
 class UsersListFragment : MvpAppCompatFragment(R.layout.fragment_entities_list),
     UsersListContract.View {
@@ -26,10 +26,9 @@ class UsersListFragment : MvpAppCompatFragment(R.layout.fragment_entities_list),
     lateinit var presenter: UsersListContract.Presenter
 
     @ProvidePresenter
-    fun provide(): UsersListContract.Presenter = get()
+    fun provide(): UsersListContract.Presenter = app.appComponent.provideUsersListPresenter()
 
     private val binding: FragmentEntitiesListBinding by viewBinding(FragmentEntitiesListBinding::bind)
-    private val userClickedEventBus: EventBus<UserClickEvent> by inject(named(EVENT_BUS_USER))
 
     private lateinit var adapter: UsersAdapter
 
@@ -46,7 +45,7 @@ class UsersListFragment : MvpAppCompatFragment(R.layout.fragment_entities_list),
     }
 
     private fun onUserClicked(user: UserEntity) {
-        userClickedEventBus.postValue(UserClickEvent(user.login))
+        app.appComponent.provideUsersEventBus().postValue(UserClickEvent(user.login))
         presenter.onUserClicked(user)
     }
 

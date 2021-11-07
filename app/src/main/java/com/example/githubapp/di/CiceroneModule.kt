@@ -1,12 +1,26 @@
 package com.example.githubapp.di
 
 import com.github.terrakok.cicerone.Cicerone
+import com.github.terrakok.cicerone.NavigatorHolder
 import com.github.terrakok.cicerone.Router
-import org.koin.dsl.module
+import dagger.Module
+import dagger.Provides
+import javax.inject.Singleton
 
-val ciceroneModule = module {
-    single { Cicerone.create() }
-    single { get<Cicerone<Router>>().router }
-    single { get<Cicerone<Router>>().getNavigatorHolder() }
+@Module
+class CiceroneModule {
+
+    @Provides
+    @Singleton
+    fun provideCicerone(): Cicerone<Router> = Cicerone.create()
+
+    @Provides
+    @Singleton
+    fun provideRouter(cicerone: Cicerone<Router>): Router = cicerone.router
+
+    @Provides
+    @Singleton
+    fun provideNavigatorHolder(cicerone: Cicerone<Router>): NavigatorHolder {
+        return cicerone.getNavigatorHolder()
+    }
 }
-
