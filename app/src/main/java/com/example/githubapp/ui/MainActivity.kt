@@ -6,20 +6,26 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.githubapp.R
 import com.example.githubapp.databinding.ActivityMainBinding
 import com.example.githubapp.ui.common.Screens.UsersListScreen
+import com.example.githubapp.utils.app
 import com.github.terrakok.cicerone.NavigatorHolder
 import com.github.terrakok.cicerone.Router
 import com.github.terrakok.cicerone.androidx.AppNavigator
-import org.koin.android.ext.android.inject
+import javax.inject.Inject
 
 class MainActivity : AppCompatActivity(R.layout.activity_main) {
     private val binding: ActivityMainBinding by viewBinding(ActivityMainBinding::bind)
     private val navigator by lazy { AppNavigator(this, binding.containerLayout.id) }
 
-    private val router: Router by inject()
-    private val navigatorHolder: NavigatorHolder by inject()
+    @Inject
+    lateinit var router: Router
+
+    @Inject
+    lateinit var navigatorHolder: NavigatorHolder
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        app.appComponent.injectMainActivity(this)
 
         if (savedInstanceState == null) {
             router.newRootScreen(UsersListScreen())

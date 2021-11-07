@@ -12,12 +12,12 @@ import com.example.githubapp.di.EVENT_BUS_REPO
 import com.example.githubapp.domain.entities.RepoEntity
 import com.example.githubapp.event_bus.EventBus
 import com.example.githubapp.event_bus.analytic.RepoClickEvent
+import com.example.githubapp.utils.app
 import moxy.MvpAppCompatFragment
 import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
-import org.koin.android.ext.android.get
-import org.koin.android.ext.android.inject
-import org.koin.core.qualifier.named
+import javax.inject.Inject
+import javax.inject.Named
 
 class ReposListFragment : MvpAppCompatFragment(R.layout.fragment_entities_list),
     ReposListContract.View {
@@ -26,10 +26,9 @@ class ReposListFragment : MvpAppCompatFragment(R.layout.fragment_entities_list),
     lateinit var presenter: ReposListContract.Presenter
 
     @ProvidePresenter
-    fun provide(): ReposListContract.Presenter = get()
+    fun provide(): ReposListContract.Presenter = app.appComponent.provideReposListPresenter()
 
     private val binding: FragmentEntitiesListBinding by viewBinding(FragmentEntitiesListBinding::bind)
-    private val repoClickedEventBus: EventBus<RepoClickEvent> by inject(named(EVENT_BUS_REPO))
 
     private lateinit var adapter: ReposAdapter
 
@@ -60,7 +59,7 @@ class ReposListFragment : MvpAppCompatFragment(R.layout.fragment_entities_list),
     }
 
     private fun onRepoClicked(repo: RepoEntity) {
-        repoClickedEventBus.postValue(RepoClickEvent(repo.name))
+        app.appComponent.provideReposEventBus().postValue(RepoClickEvent(repo.name))
         presenter.onRepoClicked(repo)
     }
 
